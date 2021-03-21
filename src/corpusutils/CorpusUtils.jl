@@ -54,14 +54,7 @@ function add_text_file(c::CorpusUtils.Corpus, filename::String, timestamp::DateT
 		println("current word is no unicode")
 	end
 
-	begin
-	    lock(c)
-        try
-            dp = DynamicData.add(c.documents, d, timestamp)
-        finally
-            unlock(c)
-	    end
-   end
+    dp = DynamicData.add(c.documents, d, timestamp)
 
 	for w_obj in collect(keys(d))
 		w_obj.doc_freq += 1
@@ -70,7 +63,7 @@ function add_text_file(c::CorpusUtils.Corpus, filename::String, timestamp::DateT
 end
 
 function add_text_file_directory(c::Corpus, path::String, timestamp::DateTime; stop_word_file::String="data/stopwords/stop_snowball.txt")
-	Threads.@threads for file in readdir(path)
+	for file in readdir(path)
 		cur_path = joinpath(path, file)
 		if isfile(cur_path)
 			add_text_file(c, cur_path, timestamp, stop_word_file=stop_word_file)
