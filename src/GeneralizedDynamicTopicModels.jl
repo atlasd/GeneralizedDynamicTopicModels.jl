@@ -370,9 +370,9 @@ function run_model(corpus::CorpusUtils.Corpus, kernel::Kernels.Kernel, num_topic
 	m = GDTM(corpus, num_topics, minibatch_size, prior_mean, prior_variance, measurement_noise, alpha, visualize, seeded=use_seeding)
 	m.krn = kernel
 	inference_svi_gp(m, inducing_points)
-	out_dir = GDTM.write_stats(m)
+	out_dir = write_stats(m)
 	if visualize
-		GDTM.make_topic_charts(out_dir, corpus, true, false)
+		make_topic_charts(out_dir, corpus, true, false)
 	end
 end
 
