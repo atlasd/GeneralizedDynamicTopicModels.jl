@@ -367,7 +367,7 @@ The optional parameters are:
 * use_seeding: use random documents to seed topics, for each topic at each time step, words in a random document (with appropriate time stamp) are used to artificially increase the probabilities of them in the current topic
 """
 function run_model(corpus::CorpusUtils.Corpus, kernel::Kernels.Kernel, num_topics::Int64, alpha::Float64; prior_mean::Float64 = 0., prior_variance::Float64 = 10.,  measurement_noise::Float64 = .5, minibatch_size::Int64 = 256, inducing_points::Int64 = 25, visualize::Bool = false, use_seeding::Bool = false)
-	m = GDTM(corpus, num_topics, batch_size, prior_mean, prior_variance, measurement_noise, alpha, visualize, seeded=use_seeding)
+	m = GDTM(corpus, num_topics, minibatch_size, prior_mean, prior_variance, measurement_noise, alpha, visualize, seeded=use_seeding)
 	m.krn = kernel
 	GPDTM.gpdtm_svi_inference(m, inducing_points)
 	out_dir = GPDTM.write_stats(m)
