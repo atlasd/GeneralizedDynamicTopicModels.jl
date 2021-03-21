@@ -70,7 +70,7 @@ function add_text_file(c::CorpusUtils.Corpus, filename::String, timestamp::DateT
 end
 
 function add_text_file_directory(c::Corpus, path::String, timestamp::DateTime; stop_word_file::String="data/stopwords/stop_snowball.txt")
-	for file in readdir(path)
+	Threads.@threads for file in readdir(path)
 		cur_path = joinpath(path, file)
 		if isfile(cur_path)
 			add_text_file(c, cur_path, timestamp, stop_word_file=stop_word_file)
