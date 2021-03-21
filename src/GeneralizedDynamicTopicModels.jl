@@ -369,10 +369,10 @@ The optional parameters are:
 function run_model(corpus::CorpusUtils.Corpus, kernel::Kernels.Kernel, num_topics::Int64, alpha::Float64; prior_mean::Float64 = 0., prior_variance::Float64 = 10.,  measurement_noise::Float64 = .5, minibatch_size::Int64 = 256, inducing_points::Int64 = 25, visualize::Bool = false, use_seeding::Bool = false)
 	m = GDTM(corpus, num_topics, minibatch_size, prior_mean, prior_variance, measurement_noise, alpha, visualize, seeded=use_seeding)
 	m.krn = kernel
-	GPDTM.gpdtm_svi_inference(m, inducing_points)
-	out_dir = GPDTM.write_stats(m)
+	GDTM.gpdtm_svi_inference(m, inducing_points)
+	out_dir = GDTM.write_stats(m)
 	if visualize
-		GPDTM.make_topic_charts(out_dir, corpus, true, false)
+		GDTM.make_topic_charts(out_dir, corpus, true, false)
 	end
 end
 
