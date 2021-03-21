@@ -53,7 +53,16 @@ function add_text_file(c::CorpusUtils.Corpus, filename::String, timestamp::DateT
 	catch UnicodeError
 		println("current word is no unicode")
 	end
-	dp = DynamicData.add(c.documents, d, timestamp)
+
+	begin
+	    lock(c)
+        try
+            dp = DynamicData.add(c.documents, d, timestamp)
+        finally
+            unlock(c)
+	    end
+   end
+
 	for w_obj in collect(keys(d))
 		w_obj.doc_freq += 1
 		push!(w_obj.used_in_docs, dp)
