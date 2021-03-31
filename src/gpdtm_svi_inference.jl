@@ -138,7 +138,7 @@ function inference_svi_gp(m::GDTM, num_inducing; rand_inducing::Bool=false, norm
 	e_step_time_agg = 0.
 	m_step_time_agg = 0.
 	info("done, starting inference")
-	@fastmath @inbounds for e in 1:5
+	@fastmath @inbounds for e in 1:epochs
 		tic()
 
 	    iter += 1
