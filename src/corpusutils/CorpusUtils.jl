@@ -234,8 +234,10 @@ function read_sequential_corpus(f, l::Lexicon)
 	# DynamicData
 	c = DynamicData.DynamicDataSet{Document, DateTime}()
 	for t=1:numTimes
-	    print(t)
-	    print("\n")
+	    if t % 100 == 0
+	        print("t=", t)
+	        print("\n")
+	    end
 		cur_date = toDate(readline(stream))
 		# cur_date.num_val = t
 		numDocsT = parse(Int64,readline(stream))

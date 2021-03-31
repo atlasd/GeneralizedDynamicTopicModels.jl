@@ -138,7 +138,7 @@ function inference_svi_gp(m::GDTM, num_inducing; rand_inducing::Bool=false, norm
 	e_step_time_agg = 0.
 	m_step_time_agg = 0.
 	info("done, starting inference")
-	@fastmath @inbounds for e in 1:epochs
+	@fastmath @inbounds for e in 1:5
 		tic()
 
 	    iter += 1
@@ -255,7 +255,7 @@ function inference_svi_gp(m::GDTM, num_inducing; rand_inducing::Bool=false, norm
 		display(Plots.plot(m.learning_rates, label="learning rates"))
 		display(Plots.plot(m.likelihood_counts, e_step_likelihoods, label="e-steps"))
 		display(Plots.plot(m.likelihood_counts, m_step_likelihoods, label="m-steps"))
-		display(Plots.plot(m.test_counts, m.test_likelihoods, title="test set predictive likelihood"))
+		display(Plots.plot(m.test_counts, m.test_perplexities, title="Out-of-Sample Perplexities"))
 	end
 	time = toq()
 
